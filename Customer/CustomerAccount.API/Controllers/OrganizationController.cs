@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using CustomerAccount.API.Data;
 using CustomerAccount.API.Entities;
 using CustomerAccount.API.Repositories.Interfaces;
@@ -45,7 +44,7 @@ namespace CustomerAccount.API.Controllers
 			return Ok(organization);
 		}
 
-        [HttpPost]
+		[HttpPost]
 		[ProducesResponseType(typeof(Organization), (int)HttpStatusCode.OK)]
 		public async Task<ActionResult<Organization>> CreateOrganization(Organization organization)
 		{
@@ -59,30 +58,30 @@ namespace CustomerAccount.API.Controllers
 		public async Task<IActionResult> UpdateOrganization(string id, OrganizationUpdate payload)
 		{
 			Organization organization = new();
-            
-            if(payload.CompanyName != null)    
-                organization.CompanyName = payload.CompanyName;
-            if(payload.Country != null)
-                organization.Country = payload.Country;
-            if(payload.State != null)
-                organization.State = payload.State;
-            if(payload.City != null)
-                organization.City = payload.City;
-            if(payload.MobileNumber != null)
-                organization.MobileNumber = payload.MobileNumber;
-            if(payload.Landline != null)
-                organization.Landline = payload.Landline;
-            if(payload.Industry != null)
-                organization.Industry = payload.Industry;
-            if(payload.Language != null)
-                organization.Language = payload.Language;
-            if(payload.CompanySize > 0)
-                organization.CompanySize = payload.CompanySize;
-           
-            if(await _repository.UpdateOrganization(organization, id))
-                return NoContent();
-            else
-                return NotFound();
+
+			if (payload.CompanyName != null)
+				organization.CompanyName = payload.CompanyName;
+			if (payload.Country != null)
+				organization.Country = payload.Country;
+			if (payload.State != null)
+				organization.State = payload.State;
+			if (payload.City != null)
+				organization.City = payload.City;
+			if (payload.MobileNumber != null)
+				organization.MobileNumber = payload.MobileNumber;
+			if (payload.Landline != null)
+				organization.Landline = payload.Landline;
+			if (payload.Industry != null)
+				organization.Industry = payload.Industry;
+			if (payload.Language != null)
+				organization.Language = payload.Language;
+			if (payload.CompanySize > 0)
+				organization.CompanySize = payload.CompanySize;
+
+			if (await _repository.UpdateOrganization(organization, id))
+				return NoContent();
+			else
+				return NotFound();
 		}
 
 		[HttpDelete("{id}")]
@@ -94,9 +93,5 @@ namespace CustomerAccount.API.Controllers
 				return NotFound();
 		}
 
-		private bool OrganizationExists(string id)
-		{
-			return (_context.Organizations?.Any(e => e.Id == id)).GetValueOrDefault();
-		}
 	}
 }

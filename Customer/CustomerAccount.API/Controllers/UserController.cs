@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using CustomerAccount.API.Data;
 using CustomerAccount.API.Entities;
 using CustomerAccount.API.Repositories.Interfaces;
