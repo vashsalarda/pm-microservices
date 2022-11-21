@@ -21,22 +21,21 @@ builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 builder.Services.AddDbContext<CustomerAccountContext>();
 
 builder.Services.AddHealthChecks()
-    .AddNpgSql(builder.Configuration["DatabaseSettings:ConnectionString"]);
+		.AddNpgSql(builder.Configuration["DatabaseSettings:ConnectionString"]);
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<CustomerAccountContext>();
-    db.Database.Migrate();
+	var db = scope.ServiceProvider.GetRequiredService<CustomerAccountContext>();
+	db.Database.EnsureDeleted();
+	db.Database.Migrate();
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 
